@@ -17,6 +17,8 @@ import { ChargeDTO } from './dto/wallet-charge.dto';
 import { PaymentDTO } from './dto/payment.dto';
 import { ConfirmPaymentDTO } from './dto/confirm.dto';
 
+const API_URL = 'http://localhost:3001/api/v1';
+
 @ApiTags('wallet')
 @Controller('api/v1/rest')
 export class AppController {
@@ -28,14 +30,14 @@ export class AppController {
   @Post('signin')
   async signIn(@Body() loginDTO: LoginDTO) {
     return this.httpService
-      .post('http://localhost:3001/api/v1/auth/signin', loginDTO)
+      .post(`${API_URL}/auth/signin`, loginDTO)
       .pipe(map((response) => response.data));
   }
 
   @Post('signup')
   async signUp(@Body() userDTO: UserDTO) {
     return this.httpService
-      .post('http://localhost:3001/api/v1/auth/signup', userDTO)
+      .post(`${API_URL}/auth/signup`, userDTO)
       .pipe(map((response) => response.data));
   }
 
@@ -49,7 +51,7 @@ export class AppController {
       'Content-Type': 'application/json',
     };
     return this.httpService
-      .post('http://localhost:3001/api/v1/wallet/charge', chargeDTO, {
+      .post(`${API_URL}/wallet/charge`, chargeDTO, {
         headers,
       })
       .pipe(map((response) => response.data));
@@ -66,7 +68,7 @@ export class AppController {
       'Content-Type': 'application/json',
     };
     return this.httpService
-      .get(`http://localhost:3001/api/v1/wallet/funds/${document}/${phone}`, {
+      .get(`${API_URL}/wallet/funds/${document}/${phone}`, {
         headers,
       })
       .pipe(map((response) => response.data));
@@ -82,7 +84,7 @@ export class AppController {
       'Content-Type': 'application/json',
     };
     return this.httpService
-      .post('http://localhost:3001/api/v1/wallet/payment', paymentDTO, {
+      .post(`${API_URL}/wallet/payment`, paymentDTO, {
         headers,
       })
       .pipe(map((response) => response.data));
@@ -98,7 +100,7 @@ export class AppController {
       'Content-Type': 'application/json',
     };
     return this.httpService
-      .put('http://localhost:3001/api/v1/wallet/payment', confirmPaymentDTO, {
+      .put(`${API_URL}/wallet/payment`, confirmPaymentDTO, {
         headers,
       })
       .pipe(map((response) => response.data));
